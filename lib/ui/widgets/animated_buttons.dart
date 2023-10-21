@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pomodoro_app/themes/theme_provider.dart';
 
 class AnimatedMenuButton extends StatelessWidget {
   final AnimationController controller;
@@ -12,10 +14,11 @@ class AnimatedMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return IconButton(
       onPressed: onPressed,
       icon: AnimatedIcon(
-        color: Colors.purple,
+        color: Color(themeProvider.terciaryColor),
         icon: AnimatedIcons.menu_close,
         size: 35,
         progress: animation,
@@ -34,10 +37,10 @@ class AnimatedPlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Material(
       borderRadius: BorderRadius.circular(5),
       color: Colors.transparent,
-      // elevation: 2,
       child: InkResponse(
         borderRadius: BorderRadius.circular(5),
         radius: 25,
@@ -52,12 +55,14 @@ class AnimatedPlayButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 boxShadow: [
                   BoxShadow(
-                      color: const Color(0xffB4AFDF).withOpacity(0.4),
+                      color:
+                          Color(themeProvider.secondaryColor).withOpacity(0.4),
                       // offset: Offset(-1, -1),
                       blurRadius: 10,
                       blurStyle: BlurStyle.solid)
                 ],
-                border: Border.all(color: const Color(0xffB4AFDF), width: 2),
+                border: Border.all(
+                    color: Color(themeProvider.secondaryColor), width: 2),
                 // color: const Color.fromARGB(255, 173, 92, 187)
                 //     .withOpacity(0.7),
               ),
@@ -68,13 +73,13 @@ class AnimatedPlayButton extends StatelessWidget {
               margin: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+                color: Color(themeProvider.primaryColor).withOpacity(0.9),
               ),
               width: 38,
               height: 38,
             ),
             AnimatedIcon(
-              color: Colors.purple,
+              color: Color(themeProvider.terciaryColor),
               icon: AnimatedIcons.play_pause,
               size: 35,
               progress: animation,

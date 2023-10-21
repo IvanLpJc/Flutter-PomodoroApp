@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:pomodoro_app/themes/theme_provider.dart';
+
 class CornerScrew extends StatelessWidget {
   final double size;
   const CornerScrew({
@@ -11,16 +15,17 @@ class CornerScrew extends StatelessWidget {
   Widget build(BuildContext context) {
     final screwSize = size * 0.08912;
     final double position = size * 0.0237;
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Material(
       elevation: 5,
       shape: const CircleBorder(),
       child: Stack(
         children: [
           Container(
-            height: screwSize, //35
-            width: screwSize, //35
+            height: screwSize,
+            width: screwSize,
             decoration: BoxDecoration(
-              color: Colors.purple,
+              color: Color(themeProvider.terciaryColor),
               borderRadius: BorderRadius.circular(100),
             ),
           ),
@@ -28,8 +33,6 @@ class CornerScrew extends StatelessWidget {
             left: position,
             top: position,
             child: Container(
-              // height: size - 20, //15
-              // width: size - 20, //15
               height: size * 0.03819,
               width: size * 0.03819,
               decoration: BoxDecoration(
@@ -41,14 +44,11 @@ class CornerScrew extends StatelessWidget {
                     color: Colors.white.withOpacity(0.7),
                   )
                 ],
-                // color: Colors.white,
                 gradient: RadialGradient(
-                    center: Alignment.topLeft,
-                    tileMode: TileMode.mirror,
-                    colors: [
-                      Colors.transparent,
-                      Colors.purple.withOpacity(0.8)
-                    ]),
+                  center: Alignment.topLeft,
+                  tileMode: TileMode.mirror,
+                  colors: [Colors.transparent, Colors.purple.withOpacity(0.8)],
+                ),
                 borderRadius: BorderRadius.circular(100),
               ),
             ),

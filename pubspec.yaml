@@ -1,4 +1,4 @@
-name: retrowave_pomodoro_app
+name: pomodoro_app
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.18.1
+  provider: ^6.0.5
   screen_brightness: ^0.2.2+1
   shared_preferences: ^2.2.2
   shimmer: ^3.0.0

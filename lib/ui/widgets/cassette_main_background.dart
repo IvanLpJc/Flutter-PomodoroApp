@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:retrowave_pomodoro_app/ui/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:pomodoro_app/themes/theme_provider.dart';
+import 'package:pomodoro_app/ui/widgets/widgets.dart';
 
 class CassetteMainBackground extends StatelessWidget {
   final double height;
@@ -16,6 +18,7 @@ class CassetteMainBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -24,14 +27,12 @@ class CassetteMainBackground extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                  color: const Color(0xffB4AFDF).withOpacity(0.4),
-                  // offset: Offset(-1, -1),
+                  color: Color(themeProvider.secondaryColor).withOpacity(0.4),
                   blurRadius: 40,
                   blurStyle: BlurStyle.solid)
             ],
-            border: Border.all(color: const Color(0xffB4AFDF), width: 1),
-            // color: const Color.fromARGB(255, 173, 92, 187)
-            //     .withOpacity(0.7),
+            border: Border.all(
+                color: Color(themeProvider.secondaryColor), width: 1),
           ),
           width: width,
           height: height,
@@ -40,7 +41,7 @@ class CassetteMainBackground extends StatelessWidget {
           margin: const EdgeInsets.all(2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.7),
+            color: Color(themeProvider.primaryColor).withOpacity(0.7),
           ),
           width: width,
           height: height,
@@ -83,14 +84,14 @@ class CassetteMainBackground extends StatelessWidget {
         //   child: Container(
         //     width: width * 0.55,
         //     height: height * 0.2,
-        //     color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+        //     color: const Color(kPrimaryPink).withOpacity(0.9),
         //   ),
         // ),
         // Positioned(
         //   child: Container(
         //     width: width * 0.52,
         //     height: height * 0.18,
-        //     // color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+        //     // color: const Color(kPrimaryPink).withOpacity(0.9),
         //     color: Colors.red,
         //   ),
         // ),

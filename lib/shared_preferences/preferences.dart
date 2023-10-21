@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:pomodoro_app/themes/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -9,11 +11,20 @@ class Preferences {
   static bool _videoOnLoop = true;
   static bool _alertSound = false;
 
+  static int _primaryColor = kPrimaryPink;
+  static int _secondaryColor = kPrimarySkyblue;
+  static int _terciaryColor = kPrimarySkyblue;
+
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static void reset() => _prefs.clear();
+  static void reset() {
+    if (kDebugMode) {
+      print("Resetting preferences...");
+    }
+    _prefs.clear();
+  }
 
   static bool get alwaysOnDisplay {
     return _prefs.getBool('alwaysOnDisplay') ?? _alwaysOnDisplay;
@@ -58,5 +69,32 @@ class Preferences {
   static set alertSound(bool value) {
     _alertSound = value;
     _prefs.setBool('alertSound', _alertSound);
+  }
+
+  static int get primaryColor {
+    return _prefs.getInt('mainColor') ?? _primaryColor;
+  }
+
+  static set primaryColor(int color) {
+    _primaryColor = color;
+    _prefs.setInt('mainColor', color);
+  }
+
+  static int get secondaryColor {
+    return _prefs.getInt('detailsColor') ?? _secondaryColor;
+  }
+
+  static set secondaryColor(int color) {
+    _secondaryColor = color;
+    _prefs.setInt('detailsColor', color);
+  }
+
+  static int get terciaryColor {
+    return _prefs.getInt('detailsColor') ?? _terciaryColor;
+  }
+
+  static set terciaryColor(int color) {
+    _terciaryColor = color;
+    _prefs.setInt('detailsColor', color);
   }
 }
