@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:screen_brightness/screen_brightness.dart';
 
 Future<double> get systemBrightness async {

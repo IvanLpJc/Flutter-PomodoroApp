@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:retrowave_pomodoro_app/ui/widgets/corner_screw.dart';
+import 'package:retrowave_pomodoro_app/ui/widgets/widgets.dart';
 
 class CassetteMainBackground extends StatelessWidget {
   final double height;
   final double width;
   final bool showScrews;
+  final bool showClock;
 
   const CassetteMainBackground(
       {super.key,
       required this.height,
       required this.width,
+      this.showClock = false,
       this.showScrews = true});
 
   @override
   Widget build(BuildContext context) {
-    // final size = MediaQuery.of(context).size;
     return Stack(
+      alignment: Alignment.topCenter,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -75,6 +77,23 @@ class CassetteMainBackground extends StatelessWidget {
               size: height,
             ),
           ),
+        if (showClock) const Clock(),
+
+        // Positioned(
+        //   child: Container(
+        //     width: width * 0.55,
+        //     height: height * 0.2,
+        //     color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+        //   ),
+        // ),
+        // Positioned(
+        //   child: Container(
+        //     width: width * 0.52,
+        //     height: height * 0.18,
+        //     // color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+        //     color: Colors.red,
+        //   ),
+        // ),
       ],
     );
   }

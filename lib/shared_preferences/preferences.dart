@@ -6,7 +6,7 @@ class Preferences {
   static bool _alwaysOnDisplay = false;
   static bool _customBrightness = false;
   static double _screenBrightness = 1.0;
-  static bool _videoOnLoop = false;
+  static bool _videoOnLoop = true;
   static bool _alertSound = false;
 
   static Future<void> init() async {

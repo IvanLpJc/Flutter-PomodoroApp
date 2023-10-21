@@ -14,19 +14,8 @@ class SettingsMenu extends StatefulWidget {
 }
 
 class _SettingsMenuState extends State<SettingsMenu> {
-  late AnimationController tmpController;
-  @override
-  void initState() {
-    super.initState();
-    widget.animationController.addStatusListener((status) {
-      if (status == AnimationStatus.forward) tmpController.forward();
-      if (status == AnimationStatus.reverse) tmpController.reverse();
-    });
-  }
-
   @override
   void dispose() {
-    tmpController.dispose();
     super.dispose();
   }
 
@@ -42,8 +31,6 @@ class _SettingsMenuState extends State<SettingsMenu> {
     final size = MediaQuery.of(context).size;
 
     return SlideInRight(
-      manualTrigger: true,
-      controller: (controller) => tmpController = controller,
       from: 400,
       child: Padding(
         padding: const EdgeInsets.only(right: 25),
@@ -54,7 +41,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             color: Colors.transparent,
             elevation: 5,
             child: SizedBox(
-              height: size.height * 0.6,
+              height: size.height * 0.65,
               width: size.width * 0.4,
               child: Stack(
                 children: [
@@ -78,42 +65,43 @@ class _SettingsMenuState extends State<SettingsMenu> {
                               letterSpacing: 5),
                         ),
                         Expanded(
-                            child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              LabeledCheckbox(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                value: Preferences.alwaysOnDisplay,
-                                title: const Text("Always On Display"),
-                                subtitle: const Text(
-                                  "This will keep your screen always awake.",
-                                  style: TextStyle(fontSize: 10),
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                LabeledCheckbox(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  value: Preferences.alwaysOnDisplay,
+                                  title: const Text("Always On Display"),
+                                  subtitle: const Text(
+                                    "This will keep your screen always awake.",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  onChanged: (value) {
+                                    Preferences.alwaysOnDisplay = value;
+                                    setState(() {});
+                                  },
                                 ),
-                                onChanged: (value) {
-                                  Preferences.alwaysOnDisplay = value;
-                                  setState(() {});
-                                },
-                              ),
-                              if (Preferences.alwaysOnDisplay &&
-                                  Preferences.customBrightness)
-                                Slider(
-                                    value: Preferences.screenBrightness,
-                                    onChangeEnd: _handleBrightnesSetting,
-                                    onChanged: (double brightness) {
-                                      setState(() {});
-                                      setBrightness(brightness);
-                                    }),
-                              if (Preferences.alwaysOnDisplay &&
-                                  !Preferences.customBrightness)
-                                FutureBuilder<double>(
-                                  future: currentBrightness,
-                                  builder: (context, snapshot) {
-                                    return snapshot.hasData
-                                        ? Container(
-                                            child: Slider(
+                                if (Preferences.alwaysOnDisplay &&
+                                    Preferences.customBrightness)
+                                  Slider(
+                                      value: Preferences.screenBrightness,
+                                      onChangeEnd: _handleBrightnesSetting,
+                                      onChanged: (double brightness) {
+                                        Preferences.screenBrightness =
+                                            brightness;
+                                        setState(() {});
+                                        setBrightness(brightness);
+                                      }),
+                                if (Preferences.alwaysOnDisplay &&
+                                    !Preferences.customBrightness)
+                                  FutureBuilder<double>(
+                                    future: currentBrightness,
+                                    builder: (context, snapshot) {
+                                      return snapshot.hasData
+                                          ? Slider(
                                               value: snapshot.data!,
                                               onChangeEnd:
                                                   _handleBrightnesSetting,
@@ -121,51 +109,56 @@ class _SettingsMenuState extends State<SettingsMenu> {
                                                 setState(() {});
                                                 setBrightness(brightness);
                                               },
-                                            ),
-                                          )
-                                        : Container();
-                                  },
-                                ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Preferences.customBrightness = false;
-                                    Preferences.screenBrightness = 1.0;
-                                    Preferences.alwaysOnDisplay = false;
-                                    Preferences.reset();
+                                            )
+                                          : Container();
+                                    },
+                                  ),
+                                LabeledCheckbox(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  value: Preferences.videoOnLoop,
+                                  title: const Text("Background playing"),
+                                  subtitle: const Text(
+                                    "This will keep the background reproduction",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  onChanged: (value) {
+                                    Preferences.videoOnLoop = value;
                                     setState(() {});
                                   },
-                                  child: Text('Reset')),
-                              LabeledCheckbox(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                value: Preferences.videoOnLoop,
-                                title: const Text("Background playing"),
-                                subtitle: const Text(
-                                  "This will keep the background reproduction",
-                                  style: TextStyle(fontSize: 10),
                                 ),
-                                onChanged: (value) {
-                                  Preferences.videoOnLoop = value;
-                                  setState(() {});
-                                },
-                              ),
-                              LabeledCheckbox(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                value: Preferences.alertSound,
-                                title: const Text("Alert sound"),
-                                subtitle: const Text(
-                                  "When timer finishes",
-                                  style: TextStyle(fontSize: 10),
+                                LabeledCheckbox(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  value: Preferences.alertSound,
+                                  title: const Text("Alert sound"),
+                                  subtitle: const Text(
+                                    "When timer finishes",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  onChanged: (value) {
+                                    Preferences.alertSound = value;
+                                    setState(() {});
+                                  },
                                 ),
-                                onChanged: (value) {
-                                  Preferences.alertSound = value;
-                                  setState(() {});
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ))
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Preferences.customBrightness = false;
+                            Preferences.screenBrightness = 1.0;
+                            Preferences.alwaysOnDisplay = false;
+                            Preferences.reset();
+                            setState(() {});
+                          },
+                          child: Text('Reset settings',
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold)),
+                        )
                       ],
                     ),
                   ),

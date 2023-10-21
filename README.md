@@ -1,6 +1,6 @@
-# retrowave_pomodoro_app
+# Pomodoro App
 
-A new Flutter project.
+An application for applying the pomodoro technique.
 
 ## Getting Started
 

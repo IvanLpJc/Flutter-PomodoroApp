@@ -1,0 +1,5 @@
+${for-snippet##export 'package:<project>$\{CLIPBOARD/.*?(\/ui\/.*)$/$1/}';##
+  files=${relativeFileDirname}/*.dart##
+  exclude=${relativeFile}##
+  noUI##
+  newline##}
