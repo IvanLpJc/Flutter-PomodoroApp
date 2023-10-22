@@ -18,7 +18,7 @@ class AnimatedMenuButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       icon: AnimatedIcon(
-        color: Color(themeProvider.terciaryColor),
+        color: Color(themeProvider.tertiaryColor),
         icon: AnimatedIcons.menu_close,
         size: 35,
         progress: animation,
@@ -79,7 +79,7 @@ class AnimatedPlayButton extends StatelessWidget {
               height: 38,
             ),
             AnimatedIcon(
-              color: Color(themeProvider.terciaryColor),
+              color: Color(themeProvider.tertiaryColor),
               icon: AnimatedIcons.play_pause,
               size: 35,
               progress: animation,

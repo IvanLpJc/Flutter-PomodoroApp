@@ -96,7 +96,7 @@ class _ClockState extends State<Clock> {
               _timeString,
               style: TextStyle(
                 letterSpacing: 2.5,
-                color: Color(themeProvider.terciaryColor),
+                color: Color(themeProvider.tertiaryColor),
                 fontSize: 24,
                 fontFamily: 'Streamster',
                 fontWeight: FontWeight.bold,

@@ -5,7 +5,7 @@ import 'package:pomodoro_app/themes/app_colors.dart';
 class ThemeProvider extends ChangeNotifier {
   int _primaryColor = kPrimaryPink;
   int _secondaryColor = kPrimaryLightBlue;
-  int _terciaryColor = kPrimaryPurple;
+  int _tertiaryColor = kPrimaryPurple;
 
   int get primaryColor => _primaryColor;
 
@@ -23,11 +23,11 @@ class ThemeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get terciaryColor => _terciaryColor;
+  int get tertiaryColor => _tertiaryColor;
 
-  set terciaryColor(int color) {
-    _terciaryColor = color;
-    Preferences.terciaryColor = color;
+  set tertiaryColor(int color) {
+    _tertiaryColor = color;
+    Preferences.tertiaryColor = color;
     notifyListeners();
   }
 }

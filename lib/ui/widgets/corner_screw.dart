@@ -25,7 +25,7 @@ class CornerScrew extends StatelessWidget {
             height: screwSize,
             width: screwSize,
             decoration: BoxDecoration(
-              color: Color(themeProvider.terciaryColor),
+              color: Color(themeProvider.tertiaryColor),
               borderRadius: BorderRadius.circular(100),
             ),
           ),
