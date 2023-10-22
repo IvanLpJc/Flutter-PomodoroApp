@@ -1,0 +1,3 @@
+[submodule "lib/themes/app_colors"]
+	path = lib/themes/app_colors
+	url = https://github.com/IvanLpJc/Flutter-AppColors.git
