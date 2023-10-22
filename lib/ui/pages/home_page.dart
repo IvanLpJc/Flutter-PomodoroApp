@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:retrowave_pomodoro_app/helpers/system_utils.dart';
-import 'package:retrowave_pomodoro_app/shared_preferences/preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:pomodoro_app/helpers/system_utils.dart';
+import 'package:pomodoro_app/shared_preferences/preferences.dart';
+import 'package:pomodoro_app/themes/theme_provider.dart';
 
-import 'package:retrowave_pomodoro_app/ui/widgets/widgets.dart';
+import 'package:pomodoro_app/ui/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,16 +46,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // onTap: () {
-    //   if (isDrawerOpen) {
-    //     _triggerAnimation();
-    //     setState(() {
-    //       isDrawerOpen = !isDrawerOpen;
-    //     });
-    //   }
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
-    //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    // },
     return GestureDetector(
       onTap: () {
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
@@ -72,29 +66,36 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 showClock: true,
               ),
             ),
-            Positioned(
-              top: 10,
-              right: 20,
-              child: AnimatedMenuButton(
-                controller: settingsMenuController,
-                onPressed: () async {
-                  _triggerAnimation();
-                  setState(() {
-                    isDrawerOpen = !isDrawerOpen;
-                  });
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return SettingsMenu(
-                            animationController: settingsMenuController);
+            if (!isPlaying)
+              Positioned(
+                top: 10,
+                right: 20,
+                child: AnimatedOpacity(
+                  opacity: !isPlaying ? 1 : 0,
+                  duration: const Duration(milliseconds: 500),
+                  child: AnimatedMenuButton(
+                    controller: settingsMenuController,
+                    onPressed: () async {
+                      _triggerAnimation();
+                      setState(() {
+                        isDrawerOpen = !isDrawerOpen;
                       });
-                  _triggerAnimation();
-                  setState(() {
-                    isDrawerOpen = !isDrawerOpen;
-                  });
-                },
+                      await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SettingsMenu(
+                              animationController: settingsMenuController,
+                              themeProvider: themeProvider,
+                            );
+                          });
+                      _triggerAnimation();
+                      setState(() {
+                        isDrawerOpen = !isDrawerOpen;
+                      });
+                    },
+                  ),
+                ),
               ),
-            ),
             Positioned(
               bottom: 40,
               child: AnimatedPlayButton(
@@ -107,20 +108,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 },
               ),
             ),
-            // IgnorePointer(
-            //   child: AnimatedOpacity(
-            //     opacity: isDrawerOpen ? 1 : 0,
-            //     duration: const Duration(milliseconds: 250),
-            //     child: Material(
-            //       elevation: 6,
-            //       color: Colors.pink.withOpacity(0.4),
-            //       child: const SizedBox(
-            //         height: double.infinity,
-            //         width: double.infinity,
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -197,10 +184,6 @@ class _BackgroundState extends State<_Background> {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      // child: Image(
-      //   image: AssetImage('assets/background.jpg'),
-      //   fit: BoxFit.cover,
-      // ),
       child: VideoPlayer(_controller),
     );
   }

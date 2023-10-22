@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'package:pomodoro_app/themes/theme_provider.dart';
 
 class Clock extends StatefulWidget {
   const Clock({super.key});
@@ -43,6 +47,7 @@ class _ClockState extends State<Clock> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Material(
       elevation: 3,
       borderRadius: const BorderRadius.only(
@@ -61,8 +66,7 @@ class _ClockState extends State<Clock> {
               ),
               boxShadow: [
                 BoxShadow(
-                    color: const Color(0xffB4AFDF).withOpacity(0.4),
-                    // offset: Offset(-1, -1),
+                    color: Color(themeProvider.secondaryColor).withOpacity(0.4),
                     blurRadius: 10,
                     blurStyle: BlurStyle.solid)
               ],
@@ -78,7 +82,7 @@ class _ClockState extends State<Clock> {
                   bottomLeft: Radius.circular(5),
                   bottomRight: Radius.circular(5),
                 ),
-                color: const Color.fromARGB(255, 173, 92, 187).withOpacity(0.9),
+                color: Color(themeProvider.primaryColor).withOpacity(0.9),
               ),
               width: 118,
               height: 50,
@@ -86,13 +90,13 @@ class _ClockState extends State<Clock> {
           ),
           Shimmer.fromColors(
             baseColor: Colors.black54,
-            highlightColor: const Color.fromARGB(255, 173, 92, 187),
+            highlightColor: Color(themeProvider.primaryColor),
             period: const Duration(seconds: 10),
             child: Text(
               _timeString,
-              style: const TextStyle(
+              style: TextStyle(
                 letterSpacing: 2.5,
-                color: Color.fromARGB(255, 153, 10, 179),
+                color: Color(themeProvider.terciaryColor),
                 fontSize: 24,
                 fontFamily: 'Streamster',
                 fontWeight: FontWeight.bold,
@@ -101,25 +105,6 @@ class _ClockState extends State<Clock> {
           ),
         ],
       ),
-    );
-  }
-
-  BoxDecoration _getDecoration() {
-    return BoxDecoration(
-      borderRadius: const BorderRadius.only(
-        bottomLeft: Radius.circular(5),
-        bottomRight: Radius.circular(5),
-      ),
-      border:
-          Border.all(color: const Color(0xffB4AFDF).withOpacity(0.4), width: 2),
-      boxShadow: const [
-        BoxShadow(
-            color: Color(0xffAD48E2),
-            blurRadius: 5,
-            spreadRadius: 2,
-            blurStyle: BlurStyle.inner,
-            offset: Offset(3, 3)),
-      ],
     );
   }
 }

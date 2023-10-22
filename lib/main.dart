@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:retrowave_pomodoro_app/shared_preferences/preferences.dart';
-import 'package:retrowave_pomodoro_app/ui/pages/home_page.dart';
+
+import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
+
+import 'package:pomodoro_app/shared_preferences/preferences.dart';
+import 'package:pomodoro_app/themes/theme_provider.dart';
+import 'package:pomodoro_app/ui/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +18,11 @@ void main() async {
       overlays: [SystemUiOverlay.bottom]);
 
   await Preferences.init();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
+    ], child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
