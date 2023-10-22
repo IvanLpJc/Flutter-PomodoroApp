@@ -13,7 +13,7 @@ class Preferences {
 
   static int _primaryColor = kPrimaryPink;
   static int _secondaryColor = kPrimarySkyblue;
-  static int _terciaryColor = kPrimarySkyblue;
+  static int _tertiaryColor = kPrimarySkyblue;
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -89,12 +89,12 @@ class Preferences {
     _prefs.setInt('detailsColor', color);
   }
 
-  static int get terciaryColor {
-    return _prefs.getInt('detailsColor') ?? _terciaryColor;
+  static int get tertiaryColor {
+    return _prefs.getInt('detailsColor') ?? _tertiaryColor;
   }
 
-  static set terciaryColor(int color) {
-    _terciaryColor = color;
+  static set tertiaryColor(int color) {
+    _tertiaryColor = color;
     _prefs.setInt('detailsColor', color);
   }
 }

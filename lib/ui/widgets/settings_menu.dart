@@ -115,7 +115,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             colorLevel: ColorLevel.secondary,
           ),
           ColorSelector(
-            colorLevel: ColorLevel.terciary,
+            colorLevel: ColorLevel.tertiary,
           ),
         ],
       ),

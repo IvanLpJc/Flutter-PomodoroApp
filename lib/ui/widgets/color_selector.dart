@@ -5,7 +5,7 @@ import 'package:pomodoro_app/themes/theme_provider.dart';
 
 import '../../themes/app_colors.dart';
 
-enum ColorLevel { primary, secondary, terciary }
+enum ColorLevel { primary, secondary, tertiary }
 
 class ColorSelector extends StatefulWidget {
   final ColorLevel colorLevel;
@@ -37,8 +37,8 @@ class ColorSelectorState extends State<ColorSelector> {
       case ColorLevel.secondary:
         _selectedColor = colors.indexOf(Preferences.secondaryColor);
         break;
-      case ColorLevel.terciary:
-        _selectedColor = colors.indexOf(Preferences.terciaryColor);
+      case ColorLevel.tertiary:
+        _selectedColor = colors.indexOf(Preferences.tertiaryColor);
         break;
     }
   }
@@ -51,8 +51,8 @@ class ColorSelectorState extends State<ColorSelector> {
       case ColorLevel.secondary:
         title = 'Secondary color';
         break;
-      case ColorLevel.terciary:
-        title = 'Terciary color';
+      case ColorLevel.tertiary:
+        title = 'tertiary color';
         break;
     }
   }
@@ -67,8 +67,8 @@ class ColorSelectorState extends State<ColorSelector> {
       case ColorLevel.secondary:
         themeProvider.secondaryColor = colors[index];
         break;
-      case ColorLevel.terciary:
-        themeProvider.terciaryColor = colors[index];
+      case ColorLevel.tertiary:
+        themeProvider.tertiaryColor = colors[index];
         break;
     }
 
